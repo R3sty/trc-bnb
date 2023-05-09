@@ -2,7 +2,7 @@
 export default function Home() {
   return (
     <main>
-      <div>Page works!</div>
+      <div className="text-teal-600">Page works!</div>
     </main>
   )
 }
