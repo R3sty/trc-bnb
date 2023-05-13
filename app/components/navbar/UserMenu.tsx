@@ -4,18 +4,26 @@
 import { useCallback, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai"
 import useRegisterModal from "@/app/hooks/useRegisterModal";
+import useLoginModal from "@/app/hooks/useLoginModal";
+import getCurrentUser from "@/app/actions/getCurrentUser"
 
 import MenuItem from "./MenuItem";
 import Avatar from "../Avatar";
+import { User } from "@prisma/client";
 
-const UserMenu = () => {
+interface UserMenuProps {
+  currentUser?: User | null;
+}
+
+const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
   const [isOpen, setIsOpen] = useState(false);
- 
+
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, [])
-  
+
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
@@ -32,12 +40,22 @@ const UserMenu = () => {
         <div className="absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm">
           <div className="flex flex-col cursor-pointer">
             <>
-              <MenuItem onClick={() => { }} label="Login" />
-              <MenuItem onClick={() => { console.log("Clicked"); registerModal.onOpen(); }} label="Sign up" />
+              {currentUser ? (
+                <>
+                  <MenuItem label="My Trips" onClick={()=> console.log("my trips")}/>
+                  
+                </>
+              ) : (
+                <>
+                  <MenuItem onClick={loginModal.onOpen} label="Login" />
+                  <MenuItem onClick={registerModal.onOpen} label="Sign up" />
+                </>
+              )}
+
             </>
           </div>
         </div>
-      ) }
+      )}
     </div>
   )
 }
