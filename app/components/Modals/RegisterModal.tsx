@@ -49,7 +49,7 @@ const RegisterModal= () => {
       loginModal.onOpen();
     })
     .catch((error) => {
-      toast.error(error);
+      toast.error("Something went wrong");
     })
     .finally(() => {
       setIsLoading(false);
@@ -102,31 +102,19 @@ const RegisterModal= () => {
         outline 
         label="Continue with Google"
         icon={FcGoogle}
-        onClick={() => signIn('google')} 
+        onClick={() => signIn("Google")} 
       />
       <Button 
         outline 
-        label="Continue with Github"
+        label="Continue with Facebook"
         icon={AiFillFacebook}
-        onClick={() => signIn('github')}
+        onClick={() => signIn("Facebook")}
       />
-      <div 
-        className="
-          text-neutral-500 
-          text-center 
-          mt-4 
-          font-light
-        "
-      >
-        <p>Already have an account?
-          <span 
-            onClick={onToggle} 
-            className="
-              text-neutral-800
-              cursor-pointer 
-              hover:underline
-            "
-            > Log in</span>
+      <div className="text-neutral-500 text-center mt-4 font-light">
+        <p>Already have an account?&nbsp;
+          <span onClick={onToggle} className="text-neutral-800 cursor-pointer hover:underline">
+            Login
+          </span>   
         </p>
       </div>
     </div>
