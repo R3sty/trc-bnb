@@ -5,14 +5,14 @@ import { useCallback, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai"
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
-import getCurrentUser from "@/app/actions/getCurrentUser"
+import { SafeUser } from "@/app/types";
 
 import MenuItem from "./MenuItem";
 import Avatar from "../Avatar";
 import { User } from "@prisma/client";
 
 interface UserMenuProps {
-  currentUser?: User | null;
+  currentUser?: SafeUser | null
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
@@ -35,11 +35,11 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
           </div>
         </div>
       </div>
-
       {isOpen && (
         <div className="absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm">
           <div className="flex flex-col cursor-pointer">
             <>
+            { console.log("current user:", currentUser)}
               {currentUser ? (
                 <>
                   <MenuItem label="My Trips" onClick={()=> console.log("my trips")}/>

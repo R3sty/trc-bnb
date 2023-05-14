@@ -1,38 +1,40 @@
-import { Nunito } from "next/font/google";
-import RegisterModal from "./components/Modals/RegisterModal";
+import { Nunito } from 'next/font/google'
+import Navbar from '@/app/components/navbar/Navbar';
 import LoginModal from "./components/Modals/LoginModal";
-import Navbar from "./components/navbar/Navbar";
-import ClientOnly from "./components/ClientOnly";
-import ToasterProvider from "./providers/ToasterProvider";
+import RegisterModal from "./components/Modals/RegisterModal";
 
 import './globals.css'
-import { Toaster } from "react-hot-toast";
-import getCurrentUser from "./actions/getCurrentUser";
+import ClientOnly from './components/ClientOnly';
+import getCurrentUser from './actions/getCurrentUser';
 
 export const metadata = {
-  title: 'bnb@trc',
-  description: 'BNB at TRC',
+  title: 'Airbnb',
+  description: 'Airbnb Clone',
 }
 
-const font = Nunito({
-  subsets:["latin"],
-})
+const font = Nunito({ 
+  subsets: ['latin'], 
+});
 
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
-  }) {
-  const currentUser = await getCurrentUser()
+}) {
+  const currentUser = await getCurrentUser();
+
   return (
     <html lang="en">
-      <body className={font.className}>{children}</body>
-      <ClientOnly>
-        <ToasterProvider />
-        <LoginModal/>
-        <RegisterModal/>
-        <Navbar currentUser={currentUser}/>
-      </ClientOnly>
+      <body className={font.className}>
+        <ClientOnly>
+          <LoginModal />
+          <RegisterModal />
+          <Navbar currentUser={currentUser} />
+        </ClientOnly>
+        <div className="pb-20 pt-28">
+          {children}
+        </div>
+      </body>
     </html>
   )
 }

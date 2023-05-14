@@ -1,14 +1,14 @@
-import { User } from "@prisma/client"
+import { SafeUser } from "@/app/types"
 import Container from "../Container"
 import Logo from "./Logo"
 import Search from "./Search"
 import UserMenu from "./UserMenu"
 
-interface NavBarProps{
-  currentUser?: User | null;
+interface NavbarProps {
+  currentUser?: SafeUser | null;
 }
 
-const Navbar: React.FC<NavBarProps> = ({ currentUser }) => {
+const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
   console.log({ currentUser })
   return (
     <div className="fixed w-full bg-white z-10 shadow-sm">
