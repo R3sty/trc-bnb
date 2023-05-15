@@ -102,13 +102,13 @@ const RegisterModal= () => {
         outline 
         label="Continue with Google"
         icon={FcGoogle}
-        onClick={() => signIn("Google")} 
+        onClick={() => signIn("google")} 
       />
       <Button 
         outline 
         label="Continue with Facebook"
         icon={AiFillFacebook}
-        onClick={() => signIn("Facebook")}
+        onClick={() => signIn("facebook")}
       />
       <div className="text-neutral-500 text-center mt-4 font-light">
         <p>Already have an account?&nbsp;

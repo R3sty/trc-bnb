@@ -50,6 +50,7 @@ const LoginModal = () => {
     })
     .then((callback) => {
       setIsLoading(false);
+      console.log("callback:",callback)
 
       if (callback?.ok) {
         toast.success('Logged in');
