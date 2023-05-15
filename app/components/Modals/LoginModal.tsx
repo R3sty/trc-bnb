@@ -6,8 +6,8 @@ import { signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
 import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
-import { 
-  FieldValues, 
+import {
+  FieldValues,
   SubmitHandler,
   useForm
 } from "react-hook-form";
@@ -27,8 +27,8 @@ const LoginModal = () => {
   const loginModal = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
 
-  const { 
-    register, 
+  const {
+    register,
     handleSubmit,
     formState: {
       errors,
@@ -40,33 +40,35 @@ const LoginModal = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = 
-  (data) => {
-    setIsLoading(true);
+  const onSubmit: SubmitHandler<FieldValues> =
+    (data) => {
+      setIsLoading(true);
 
-    signIn('credentials', { 
-      ...data, 
-      redirect: false,
-    })
-    .then((callback) => {
-      setIsLoading(false);
-      console.log("callback:",callback)
+      signIn('credentials', {
+        ...data,
+        redirect: false,
+      })
+        .then((callback) => {
+          setIsLoading(false);
+          console.log("callback:", callback)
 
-      if (callback?.ok) {
-        toast.success('Logged in');
-        router.refresh();
-        loginModal.onClose();
-      }
-      
-      if (callback?.error) {
-        toast.error(callback.error);
-      }
-    });
-  }
+          if (callback?.ok)
+          {
+            toast.success('Logged in');
+            router.refresh();
+            loginModal.onClose();
+          }
+
+          if (callback?.error)
+          {
+            toast.error(callback.error);
+          }
+        });
+    }
 
   const onToggle = useCallback(() => {
-    registerModal.onClose();
-    loginModal.onOpen();
+    loginModal.onClose();
+    registerModal.onOpen();
   }, [registerModal, loginModal])
 
   const bodyContent = (
@@ -98,24 +100,32 @@ const LoginModal = () => {
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       <hr />
-      <Button 
-        outline 
+      <Button
+        outline
         label="Continue with Google"
         icon={FcGoogle}
-        onClick={() => signIn("Google")} 
+        onClick={() => signIn("Google")}
       />
-      <Button 
-        outline 
+      <Button
+        outline
         label="Continue with Facebook"
         icon={AiFillFacebook}
         onClick={() => signIn("Facebook")}
       />
+
+      <div className="text-neutral-500 text-center mt-4 font-light">
+        <p>No account yet?&nbsp;
+          <span onClick={onToggle} className="text-neutral-800 cursor-pointer hover:underline">
+            Sign up
+          </span>
+        </p>
+      </div>
     </div>
   )
 
   return (
     <Modal
-      disabled={isLoading} 
+      disabled={isLoading}
       isOpen={loginModal.isOpen}
       title="Login"
       actionLabel="Continue"
