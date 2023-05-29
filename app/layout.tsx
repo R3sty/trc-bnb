@@ -4,17 +4,19 @@ import LoginModal from "@/app/components/Modals/LoginModal";
 import RegisterModal from "@/app/components/Modals/RegisterModal";
 import RentModal from "./components/Modals/RentModal";
 
+import ToasterProvider from '@/app/providers/ToasterProvider';
+
 import './globals.css'
 import ClientOnly from './components/ClientOnly';
 import getCurrentUser from './actions/getCurrentUser';
 
 export const metadata = {
-  title: 'Airbnb',
-  description: 'Airbnb Clone',
+  title: 'trc-bnb',
+  description: 'TRC-BnB',
 }
 
-const font = Nunito({ 
-  subsets: ['latin'], 
+const font = Nunito({
+  subsets: ['latin'],
 });
 
 export default async function RootLayout({
@@ -28,9 +30,10 @@ export default async function RootLayout({
     <html lang="en">
       <body className={font.className}>
         <ClientOnly>
-          <LoginModal/>
-          <RegisterModal/>
-          <RentModal/>
+          <ToasterProvider />
+          <LoginModal />
+          <RegisterModal />
+          <RentModal />
           <Navbar currentUser={currentUser} />
         </ClientOnly>
         <div className="pb-20 pt-28">

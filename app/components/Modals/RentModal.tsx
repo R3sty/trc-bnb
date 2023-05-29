@@ -48,6 +48,12 @@ const RentModal = () => {
     {
       setSelectedCategories(prev => [...prev, category]);
     }
+      
+    setValue('category', selectedCategories, {
+      shouldDirty: true,
+      shouldTouch: true,
+      shouldValidate: true
+    });
   }
 
   const {
@@ -105,21 +111,24 @@ const RentModal = () => {
     }
 
     setIsLoading(true);
+    data.categories = selectedCategories;
 
     axios.post('/api/listings', data)
       .then(() => {
         toast.success('Listing created!');
-        router.refresh();
-        reset();
-        setStep(STEPS.LOCATION)
-        rentModal.onClose();
+        setTimeout(() => {
+          router.refresh();
+          reset();
+          setStep(STEPS.LOCATION);
+          rentModal.onClose();
+        }, 1000);
       })
       .catch(() => {
         toast.error('Something went wrong.');
       })
       .finally(() => {
         setIsLoading(false);
-      })
+      });
   }
 
   const actionLabel = useMemo(() => {
@@ -278,7 +287,7 @@ const RentModal = () => {
     <Modal
       disabled={isLoading}
       isOpen={rentModal.isOpen}
-      title="Airbnb your home!"
+      title="Rent out your unit!"
       actionLabel={actionLabel}
       onSubmit={handleSubmit(onSubmit)}
       secondaryActionLabel={secondaryActionLabel}
